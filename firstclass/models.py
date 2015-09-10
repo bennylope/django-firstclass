@@ -2,6 +2,7 @@ import random
 from django.db import models
 from django_extensions.db.fields.json import JSONField
 
+
 class Message(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
     data = JSONField()

@@ -1,4 +1,6 @@
-import sys, importlib
+import importlib
+import sys
+
 
 def get_cls_by_name(name, aliases={}, imp=None, package=None, sep='.', **kwargs):
     if not imp:
@@ -22,6 +24,7 @@ def get_cls_by_name(name, aliases={}, imp=None, package=None, sep='.', **kwargs)
             (name, exc), sys.exc_info()[2])
 
     return getattr(module, cls_name)
+
 
 def call_or_format(func, attrs):
     if hasattr(func, '__call__'):

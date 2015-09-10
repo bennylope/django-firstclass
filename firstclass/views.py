@@ -4,6 +4,7 @@ from django.http import Http404
 from firstclass.middleware.online.settings import FIRSTCLASS_VIEWONLINE_AUTH
 from .models import Message
 
+
 def view_message_online(request, key, template='firstclass/message.html'):
     message = get_object_or_404(Message, key=key)
 
@@ -14,6 +15,7 @@ def view_message_online(request, key, template='firstclass/message.html'):
     return render_to_response(template, {
         'message': message,
     })
+
 
 if FIRSTCLASS_VIEWONLINE_AUTH:
     view_message_online = login_required(view_message_online)

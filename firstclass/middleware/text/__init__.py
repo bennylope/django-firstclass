@@ -3,6 +3,7 @@ from django.utils.html import strip_tags
 from firstclass.utils import call_or_format
 from .settings import FIRSTCLASS_PLAINTEXT_RULES
 
+
 class PlainTextMiddleware(object):
     def process_message(self, message):
         if hasattr(message, 'attach_alternative'):

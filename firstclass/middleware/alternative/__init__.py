@@ -1,5 +1,6 @@
 from django.core.mail.message import EmailMultiAlternatives
 
+
 class MultiAlternativesMiddleware(object):
     def process_message(self, message):
         return EmailMultiAlternatives(
@@ -11,4 +12,5 @@ class MultiAlternativesMiddleware(object):
             connection=message.connection,
             attachments=message.attachments,
             headers=message.extra_headers,
-            cc=message.cc)
+            cc=message.cc
+        )

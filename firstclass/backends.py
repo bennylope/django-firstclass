@@ -3,6 +3,7 @@ from django.core.mail.backends.base import BaseEmailBackend
 from .settings import FIRSTCLASS_EMAIL_BACKEND, FIRSTCLASS_MIDDLEWARE
 from .utils import get_cls_by_name
 
+
 class ProxyBackend(BaseEmailBackend):
     def __init__(self, **kwargs):
         self._backend = get_connection(FIRSTCLASS_EMAIL_BACKEND, **kwargs)

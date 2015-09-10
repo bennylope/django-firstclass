@@ -4,6 +4,7 @@ from firstclass.models import Message
 
 DOMAIN = Site.objects.get_current().domain
 
+
 class ViewOnlineMiddleware(object):
     def process_message(self, message):
         saved = Message.objects.create(data={
