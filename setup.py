@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
+
 setup(
-    name='django-firstclass',
-    version='0.9.1',
+    name='pony-express',
+    version='1.0.0',
     license='MIT',
-    author='Andrew McCloud',
-    author_email='andrew@amccloud.com',
-    url='http://github.com/amccloud/django-firstclass/',
+    author='Ben Lopatin, Andrew McCloud',
+    author_email='ben@wellfire.co',
+    url='http://github.com/bennylope/django-firstclass/',
     packages=find_packages(exclude=['tests']),
     install_requires=open('requirements.txt').readlines(),
     zip_safe=False,

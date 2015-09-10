@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def anchor_to_text(attrs):
     text = attrs.get('href').strip()
     title = attrs.get('title', attrs.get('text', '')).strip()
@@ -8,6 +9,7 @@ def anchor_to_text(attrs):
         return text
 
     return '(%s) %s' % (title, text)
+
 
 def image_to_text(attrs):
     text = attrs.get('src').strip()
