@@ -1,12 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Management command entry point for working with migrations
+"""
+
 import sys
 
 try:
 
     import django
     from django.conf import settings
+    INSTALLED_APPS = [
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sites",
+        "firstclass",
+    ]
+
+    if django.VERSION[1] < 7:
+        INSTALLED_APPS = ['south'] + INSTALLED_APPS
 
     settings.configure(
         DEBUG=True,
@@ -16,24 +29,15 @@ try:
                 "ENGINE": "django.db.backends.sqlite3",
             }
         },
-        ROOT_URLCONF="tests.urls",
-        INSTALLED_APPS=[
-            "django.contrib.auth",
-            "django.contrib.contenttypes",
-            "django.contrib.sites",
-            # The ordering here, the apps using the organization base models
-            # first and *then* the organizations app itself is an implicit test
-            # that the organizations app need not be installed in order to use
-            # its base models.
-            "firstclass",
-        ],
+        ROOT_URLCONF="firstclass.urls",
+        INSTALLED_APPS=INSTALLED_APPS,
         MIDDLEWARE_CLASSES=(),  # Silence Django 1.7 warnings
         SITE_ID=1,
-        NOSE_ARGS=['-s'],
-        FIXTURE_DIRS=['tests/fixtures'],
-        ORGS_TIMESTAMPED_MODEL='django_extensions.db.models.TimeStampedModel',
     )
-    django.setup()
+    try:
+        django.setup()
+    except AttributeError:
+        pass
 
 except ImportError:
     raise ImportError("Ensure this is run in an environment with Django and test requirements installed.")
