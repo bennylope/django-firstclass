@@ -1,4 +1,5 @@
 """
+Configuration file for py.test
 """
 
 import django
