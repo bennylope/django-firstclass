@@ -1,3 +1,7 @@
+"""
+Django email backend class definition
+"""
+
 from django.core.mail import get_connection
 from django.core.mail.backends.base import BaseEmailBackend
 from .settings import FIRSTCLASS_EMAIL_BACKEND, FIRSTCLASS_MIDDLEWARE

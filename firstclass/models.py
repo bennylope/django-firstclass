@@ -1,30 +1,37 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 import random
-from django.db import models
+from django.core.urlresolvers import reverse
+from django.db import models, IntegrityError
 from django_extensions.db.fields.json import JSONField
+
+
+def key_gen():
+    return '%04x' % random.getrandbits(40 * 4)
 
 
 class Message(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
     data = JSONField()
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('view_message_online', (), {
+        return reverse('view_message_online', kwargs={
             'key': self.key,
         })
 
     def save(self, *args, **kwargs):
-        if not self.key:
-            while True:
-                try:
-                    self.key = '%04x' % random.getrandbits(40 * 4)
-                    super(Message, self).save(*args, **kwargs)
-                except:
-                    continue
-                else:
-                    return
+        while not self.key:
+            self.key = key_gen()
+            try:
+                super(Message, self).save(*args, **kwargs)
+            except IntegrityError:
+                self.key = None
+            else:
+                return
 
         super(Message, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return u"%s to %s" % (self.data['subject'], ', '.join(self.data['to']))
+    def __str__(self):
+        return "{} to {}".format(self.data['subject'], ', '.join(self.data['to']))
